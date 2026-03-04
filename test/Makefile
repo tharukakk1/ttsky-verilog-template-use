@@ -38,8 +38,16 @@ COMPILE_ARGS 		+= -I$(SRC_DIR)
 VERILOG_SOURCES += $(PWD)/tb.v
 TOPLEVEL = tb
 
-# List test modules to run, separated by commas and without the .py suffix:
-COCOTB_TEST_MODULES = test
+# # List test modules to run, separated by commas and without the .py suffix:
+# COCOTB_TEST_MODULES = test
 
-# include cocotb's make rules to take care of the simulator setup
-include $(shell cocotb-config --makefiles)/Makefile.sim
+# # include cocotb's make rules to take care of the simulator setup
+# include $(shell cocotb-config --makefiles)/Makefile.sim
+
+# Standard Verilog Simulation Target
+all:
+	iverilog -o sim.out $(VERILOG_SOURCES)
+	vvp sim.out
+
+# If the GitHub Action still requires Cocotb's include, you can leave it, 
+# but "all" should be your default target to run your self-checking test.
